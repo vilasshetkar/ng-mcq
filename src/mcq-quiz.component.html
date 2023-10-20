@@ -1,0 +1,102 @@
+<!-- mcq-quiz.component.html -->
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="row" *ngIf="currentQuestion">
+        <!-- Display the question and options here -->
+        <div class="col">
+          <h4>{{ currentQuestion.question }}</h4>
+          <div *ngFor="let option of currentQuestion.options; let i = index">
+            <label>
+              <input
+                type="radio"
+                name="answer"
+                [(ngModel)]="selectedAnswer"
+                [value]="i"
+              />
+              {{ option.value }}
+            </label>
+          </div>
+          <button class="btn btn-info" (click)="submitAnswer()">
+            Submit Answer
+          </button>
+        </div>
+        <div class="col-3">
+          <div class="timer">Timer: {{ formatTimer(timer) }}</div>
+          <img
+            [src]="currentQuestion.media.value"
+            *ngIf="currentQuestion.media"
+            class="img-fluid"
+            alt="Question Image"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showResults">
+    <!-- quiz-results.component.html -->
+
+    <!-- quiz-results.component.html -->
+
+    <div class="container">
+      <h2 class="my-4">Thank You! Test Summary</h2>
+      <div class="my-3">
+        <p>
+          <strong>Total Duration:</strong>
+          {{ totalDuration | date: 'HH:mm:ss' }}
+        </p>
+        <p><strong>Time Taken:</strong> {{ timer | date: 'mm:ss' }}</p>
+        <p><strong>Total Correct Answers:</strong> {{ totalCorrectAnswers }}</p>
+        <p>
+          <strong>Total Incorrect Answers:</strong> {{ totalIncorrectAnswers }}
+        </p>
+        <p><strong>Total Obtained Points:</strong> {{ totalObtainedPoints }}</p>
+      </div>
+
+      <h3 class="my-4">Question Details:</h3>
+      <div *ngFor="let result of quizResults" class="my-3">
+        <div
+          [ngClass]="{
+            'text-success': result.answer === 'Correct',
+            'text-danger': result.answer === 'Incorrect'
+          }"
+        >
+          <p class="mb-2">
+            <strong>Question:</strong> {{ getQuestionText(result) }}
+          </p>
+          <p><strong>Given Answer:</strong> {{ result.givenAnswer }}</p>
+          <p><strong>Correct Answer:</strong> {{ getCorrectAnswer(result) }}</p>
+          <p><strong>Feedback:</strong> {{ getFeedback(result) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="container">
+      <h2>Thank You! Test Summary</h2>
+      <p>Total Duration: {{ totalDuration | date: 'HH:mm:ss' }}</p>
+      <p>Time Taken: {{ timer | date: 'mm:ss' }}</p>
+      <p>Total Correct Answers: {{ totalCorrectAnswers }}</p>
+      <p>Total Incorrect Answers: {{ totalIncorrectAnswers }}</p>
+      <p>Total Obtained Points: {{ totalObtainedPoints }}</p>
+
+      <h3>Question Details:</h3>
+      <div *ngFor="let result of quizResults">
+        <div
+          [ngClass]="{
+            'text-success': result.answer === 'Correct',
+            'text-danger': result.answer === 'Incorrect'
+          }"
+        >
+          Question: {{ getQuestionText(result) }}<br />
+          Given Answer: {{ getGivenAnswer(result) }}<br />
+          Correct Answer: {{ getCorrectAnswer(result) }}<br />
+          Feedback: {{ getFeedback(result) }}
+        </div>
+      </div>
+    </div> -->
+    {{ quizResults | json }}
+    <!-- <app-quiz-results [quizResults]="quizResults"></app-quiz-results> -->
+  </div>
+</div>

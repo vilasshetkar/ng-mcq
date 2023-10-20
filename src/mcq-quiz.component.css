@@ -1,0 +1,29 @@
+/* mcq-quiz.component.css */
+.container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.timer {
+  text-align: right;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.question {
+  margin-top: 20px;
+}
+
+.feedback {
+  margin-top: 10px;
+}
+
+.text-success {
+  color: green;
+}
+
+.text-danger {
+  color: red;
+}
